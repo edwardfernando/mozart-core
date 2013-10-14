@@ -82,6 +82,7 @@ public class TransformerUtil {
 
 	public <T> T toModel(HttpServletRequest request, Class<T> clazz) throws MozartException {
 		T newInstance = null;
+		int paramCount = 0;
 		try {
 			newInstance = clazz.newInstance();
 			for (Field field : clazz.getDeclaredFields()) {
@@ -96,6 +97,8 @@ public class TransformerUtil {
 
 				field.setAccessible(true);
 				field.set(newInstance, transform(request, field, parameterName));
+
+				paramCount++;
 			}
 
 		} catch (MozartException e) {
@@ -106,6 +109,10 @@ public class TransformerUtil {
 			throw new MozartException(e);
 		} catch (Exception e) {
 			throw new MozartException(e);
+		}
+
+		if (paramCount == 0) {
+			throw new MozartException("No HttpParam found. Saving method aborted.");
 		}
 
 		return newInstance;
