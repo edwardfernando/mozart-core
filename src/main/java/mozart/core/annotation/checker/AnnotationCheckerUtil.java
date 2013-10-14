@@ -17,7 +17,7 @@ import com.google.common.collect.Maps;
 public class AnnotationCheckerUtil {
 
 	private static AnnotationCheckerUtil instance;
-	private static String PACKAGE = "mozart";
+	private static String PACKAGE = "mozart.api";
 	private static String THRESHOLD_MESSAGE = "[Class]";
 	private static String EMPTY_SPACE = "  ";
 	private static Map<Class<? extends Annotation>, Checker> checkers = Maps.newHashMap();
