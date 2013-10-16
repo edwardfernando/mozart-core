@@ -1,15 +1,27 @@
 package mozart.core.pagination;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement
+@XmlAccessorType(value = XmlAccessType.FIELD)
 public class FilterCriteria {
 
+	@XmlElement
 	protected Integer max;
 
+	@XmlElement
 	protected Integer page;
 
+	@XmlElement
 	protected Integer nextPage;
 
+	@XmlElement
 	protected Integer prevPage;
 
+	@XmlElement
 	protected Integer totalPage;
 
 	public Integer start() {
