@@ -84,7 +84,7 @@ public abstract class AbstractDAO<T> implements FilterableDao {
 		}
 	}
 
-	public Object execUnique(String query, Object[] parameters) throws MozartException {
+	public Object execUnique(String query, Object... parameters) throws MozartException {
 		Session session = getSession();
 		try {
 			Query object = session.createQuery(query);
@@ -104,7 +104,7 @@ public abstract class AbstractDAO<T> implements FilterableDao {
 		}
 	}
 
-	public Object execList(String query, Object[] parameters) throws MozartException {
+	public Object execList(String query, Object... parameters) throws MozartException {
 		Session session = getSession();
 		try {
 			Query object = session.createQuery(query);
