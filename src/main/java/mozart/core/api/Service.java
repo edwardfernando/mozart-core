@@ -61,9 +61,7 @@ public abstract class Service<T> {
 	}
 
 	public void save(HttpServletRequest request) throws MozartException {
-		throw new MozartException("Unrecognized POST action for " +
-		                          request.getPathInfo() +
-		                          " in service layer");
+		getDao().save(transform(request));
 	}
 
 	public void delete(Long id) throws MozartException {
