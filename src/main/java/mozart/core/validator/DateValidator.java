@@ -19,8 +19,9 @@ public class DateValidator extends Validator {
 		try {
 			DateTimeFormat.forPattern(format).parseDateTime(value);
 		} catch (Exception e) {
-			errorWrapper
-			    .registerError(new Error(paramName, String.format("Invalid date.", format)));
+			errorWrapper.registerError(new Error(paramName, String.format(
+			    "Invalid date. Should be in %s format",
+			    format)));
 		}
 	}
 }
