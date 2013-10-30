@@ -9,9 +9,9 @@ import org.springframework.stereotype.Component;
 
 @Provider
 @Component
-public class CommonExceptionResolver implements ExceptionMapper<Throwable> {
+public class CommonExceptionResolver implements ExceptionMapper<Exception> {
 
-	public Response toResponse(Throwable ex) {
+	public Response toResponse(Exception ex) {
 		error.registerError(new Error(String.format(
 		    "Unknown Exception Caught : %s",
 		    ex.getMessage())));
