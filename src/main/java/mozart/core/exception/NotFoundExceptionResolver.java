@@ -1,5 +1,6 @@
 package mozart.core.exception;
 
+import javax.ws.rs.NotFoundException;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 import javax.ws.rs.ext.ExceptionMapper;
@@ -9,14 +10,15 @@ import org.springframework.stereotype.Component;
 
 @Provider
 @Component
-public class CommonExceptionResolver implements ExceptionMapper<Exception> {
+public class NotFoundExceptionResolver implements ExceptionMapper<NotFoundException> {
 
-	public Response toResponse(Exception ex) {
+	public Response toResponse(NotFoundException ex) {
+            
 		error.registerError(new Error(String.format(
 		    "Unknown Exception Caught : %s",
 		    ex.getMessage())));
 
-		return Response.status(Status.BAD_REQUEST).entity(error.getErrors()).build();
+		return Response.status(Status.NOT_FOUND).entity(ex.getClass().toString()).build();
 	}
 
 	private final ErrorWrapper error = new ErrorWrapper();
