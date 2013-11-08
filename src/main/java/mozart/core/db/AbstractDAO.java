@@ -20,19 +20,21 @@ public abstract class AbstractDAO<T> implements FilterableDao {
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<T> loadAll() {
+	public List<T> loadAll() throws MozartException {
 		Session session = getSession();
 		try {
 			session.beginTransaction();
 			return session.createQuery(
 			    "from " + getModel().getName() + " domain order by domain.id asc").list();
 		} catch (HibernateException e) {
-			throw SessionFactoryUtils.convertHibernateAccessException(e);
+			throw new MozartException(
+			                          e.getCause().getMessage(),
+			                          SessionFactoryUtils.convertHibernateAccessException(e));
 		}
 	}
 
 	@SuppressWarnings("unchecked")
-	public T loadById(Long id) {
+	public T loadById(Long id) throws MozartException {
 		Session session = getSession();
 		try {
 			Query query = session.createQuery("from " +
@@ -41,46 +43,56 @@ public abstract class AbstractDAO<T> implements FilterableDao {
 			query.setLong("id", id);
 			return (T) query.uniqueResult();
 		} catch (HibernateException e) {
-			throw SessionFactoryUtils.convertHibernateAccessException(e);
+			throw new MozartException(
+			                          e.getCause().getMessage(),
+			                          SessionFactoryUtils.convertHibernateAccessException(e));
 		}
 	}
 
-	public Long save(T obj) {
+	public Long save(T obj) throws MozartException {
 		Session session = getSession();
 		try {
 			return (Long) session.save(obj);
 		} catch (HibernateException e) {
 			session.getTransaction().rollback();
-			throw SessionFactoryUtils.convertHibernateAccessException(e);
+			throw new MozartException(
+			                          e.getCause().getMessage(),
+			                          SessionFactoryUtils.convertHibernateAccessException(e));
 		}
 	}
 
-	public void update(T obj) {
+	public void update(T obj) throws MozartException {
 		Session session = getSession();
 		try {
 			session.update(obj);
 		} catch (HibernateException e) {
 			session.getTransaction().rollback();
-			throw SessionFactoryUtils.convertHibernateAccessException(e);
+			throw new MozartException(
+			                          e.getCause().getMessage(),
+			                          SessionFactoryUtils.convertHibernateAccessException(e));
 		}
 	}
 
-	public void delete(T obj) {
+	public void delete(T obj) throws MozartException {
 		Session session = getSession();
 		try {
 			session.delete(obj);
 		} catch (HibernateException e) {
 			session.getTransaction().rollback();
-			throw SessionFactoryUtils.convertHibernateAccessException(e);
+			throw new MozartException(
+			                          e.getCause().getMessage(),
+			                          SessionFactoryUtils.convertHibernateAccessException(e));
 		}
 	}
 
-	public Object execUnique(String query) {
+	public Object execUnique(String query) throws MozartException {
 		Session session = getSession();
 		try {
 			return session.createQuery(query).uniqueResult();
 		} catch (HibernateException e) {
-			throw SessionFactoryUtils.convertHibernateAccessException(e);
+			throw new MozartException(
+			                          e.getCause().getMessage(),
+			                          SessionFactoryUtils.convertHibernateAccessException(e));
 		}
 	}
 
@@ -91,16 +103,20 @@ public abstract class AbstractDAO<T> implements FilterableDao {
 			setParameters(object, parameters);
 			return object.uniqueResult();
 		} catch (HibernateException e) {
-			throw SessionFactoryUtils.convertHibernateAccessException(e);
+			throw new MozartException(
+			                          e.getCause().getMessage(),
+			                          SessionFactoryUtils.convertHibernateAccessException(e));
 		}
 	}
 
-	public Object execList(String query) {
+	public Object execList(String query) throws MozartException {
 		Session session = getSession();
 		try {
 			return session.createQuery(query).list();
 		} catch (HibernateException e) {
-			throw SessionFactoryUtils.convertHibernateAccessException(e);
+			throw new MozartException(
+			                          e.getCause().getMessage(),
+			                          SessionFactoryUtils.convertHibernateAccessException(e));
 		}
 	}
 
@@ -111,23 +127,29 @@ public abstract class AbstractDAO<T> implements FilterableDao {
 			setParameters(object, parameters);
 			return object.list();
 		} catch (HibernateException e) {
-			throw SessionFactoryUtils.convertHibernateAccessException(e);
+			throw new MozartException(
+			                          e.getCause().getMessage(),
+			                          SessionFactoryUtils.convertHibernateAccessException(e));
 		}
 	}
 
-	public Object execUnique(Query query) {
+	public Object execUnique(Query query) throws MozartException {
 		try {
 			return query.uniqueResult();
 		} catch (HibernateException e) {
-			throw SessionFactoryUtils.convertHibernateAccessException(e);
+			throw new MozartException(
+			                          e.getCause().getMessage(),
+			                          SessionFactoryUtils.convertHibernateAccessException(e));
 		}
 	}
 
-	public Object execList(Query query) {
+	public Object execList(Query query) throws MozartException {
 		try {
 			return query.list();
 		} catch (HibernateException e) {
-			throw SessionFactoryUtils.convertHibernateAccessException(e);
+			throw new MozartException(
+			                          e.getCause().getMessage(),
+			                          SessionFactoryUtils.convertHibernateAccessException(e));
 		}
 	}
 

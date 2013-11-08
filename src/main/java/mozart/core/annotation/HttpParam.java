@@ -9,4 +9,6 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface HttpParam {
 	String value() default "";
+
+	int length() default 45;
 }

@@ -13,12 +13,12 @@ import org.springframework.stereotype.Component;
 public class NotFoundExceptionResolver implements ExceptionMapper<NotFoundException> {
 
 	public Response toResponse(NotFoundException ex) {
-            
+
 		error.registerError(new Error(String.format(
 		    "Unknown Exception Caught : %s",
 		    ex.getMessage())));
 
-		return Response.status(Status.NOT_FOUND).entity(ex.getClass().toString()).build();
+		return Response.status(Status.BAD_REQUEST).entity(ex.getMessage()).build();
 	}
 
 	private final ErrorWrapper error = new ErrorWrapper();

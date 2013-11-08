@@ -17,6 +17,11 @@ public class MozartException extends Exception {
 		this.error.registerError(new Error(throwable.getMessage()));
 	}
 
+	public MozartException(String error, Throwable throwable) {
+		this.error.registerError(new Error(error));
+		this.error.registerError(new Error(throwable.getMessage()));
+	}
+
 	public ErrorWrapper getError() {
 		return error;
 	}
