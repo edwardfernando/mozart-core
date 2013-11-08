@@ -16,8 +16,8 @@ import com.google.gson.stream.JsonReader;
 
 public class CountryDataSource {
 
-	private static Map<String, Country> countriesMap = Maps.newConcurrentMap();
-	private static List<Country> countriesList = Lists.newArrayList();
+	private static Map<String, Country> map = Maps.newConcurrentMap();
+	private static List<Country> list = Lists.newArrayList();
 
 	private static CountryDataSource instance;
 
@@ -26,7 +26,6 @@ public class CountryDataSource {
 	}
 
 	private void initialize() {
-
 		InputStream streams = getClass().getClassLoader().getResourceAsStream(
 		    "jsons/countries.json");
 
@@ -37,8 +36,8 @@ public class CountryDataSource {
 			reader.beginArray();
 			while (reader.hasNext()) {
 				Country country = gson.fromJson(reader, Country.class);
-				countriesMap.put(country.getCca2(), country);
-				countriesList.add(country);
+				map.put(country.getCca2(), country);
+				list.add(country);
 			}
 
 			reader.endArray();
@@ -51,12 +50,12 @@ public class CountryDataSource {
 
 	}
 
-	public Map<String, Country> getCountriesMap() {
-		return countriesMap;
+	public Map<String, Country> getMap() {
+		return map;
 	}
 
-	public List<Country> getCountriesList() {
-		return countriesList;
+	public List<Country> getList() {
+		return list;
 	}
 
 	public static CountryDataSource instance() {
@@ -66,4 +65,7 @@ public class CountryDataSource {
 		return instance;
 	}
 
+	public static void main(String[] args) {
+		System.out.println(CountryDataSource.instance().getMap());
+	}
 }
