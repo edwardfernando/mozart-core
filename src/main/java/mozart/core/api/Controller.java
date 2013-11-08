@@ -31,14 +31,14 @@ public abstract class Controller<T> {
 
 	@GET
 	@Path("/{id}")
-	public Response loadById(@PathParam("id") Long id, @Context HttpServletRequest request)
+	public Response loadById(@PathParam("id") String id, @Context HttpServletRequest request)
 	        throws MozartException {
 		return Response.ok(getConfig().getService().loadById(id)).build();
 	}
 
 	@DELETE
 	@Path("/{id}")
-	public Response delete(@PathParam("id") Long id, @Context HttpServletRequest request)
+	public Response delete(@PathParam("id") String id, @Context HttpServletRequest request)
 	        throws MozartException {
 		getConfig().getService().delete(id);
 		return Response.ok().build();
@@ -52,7 +52,7 @@ public abstract class Controller<T> {
 
 	@PUT
 	@Path("/{id}")
-	public Response update(@PathParam("id") Long id, @Context HttpServletRequest request)
+	public Response update(@PathParam("id") String id, @Context HttpServletRequest request)
 	        throws MozartException {
 		throw new MozartException("Unrecognized PUT action for " + request.getPathInfo());
 	}

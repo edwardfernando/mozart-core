@@ -48,8 +48,8 @@ public abstract class Service<T> {
 
 	}
 
-	public T loadById(Long id) throws MozartException {
-		T obj = getDao().loadById(id);
+	public T loadById(String id) throws MozartException {
+		T obj = getDao().loadById(Long.valueOf(id));
 		if (obj == null) {
 			throw new MozartException("Resource '" +
 			                          getModel().getSimpleName().toLowerCase() +
@@ -64,8 +64,8 @@ public abstract class Service<T> {
 		getDao().save(transform(request));
 	}
 
-	public void delete(Long id) throws MozartException {
-		T obj = getDao().loadById(id);
+	public void delete(String id) throws MozartException {
+		T obj = getDao().loadById(Long.valueOf(id));
 		if (obj == null) {
 			throw new MozartException("Resource '" +
 			                          getModel().getSimpleName().toLowerCase() +
