@@ -14,7 +14,7 @@ import com.google.common.collect.Maps;
 import com.google.gson.Gson;
 import com.google.gson.stream.JsonReader;
 
-public class AdvertiserTypeDataSource {
+public class AdvertiserTypeDataSource implements DataSource<AdvertiserType> {
 
 	private static Map<String, AdvertiserType> map = Maps.newConcurrentMap();
 	private static List<AdvertiserType> list = Lists.newArrayList();

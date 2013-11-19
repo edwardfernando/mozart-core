@@ -14,7 +14,7 @@ import com.google.common.collect.Maps;
 import com.google.gson.Gson;
 import com.google.gson.stream.JsonReader;
 
-public class CountryDataSource {
+public class CountryDataSource implements DataSource<Country> {
 
 	private static Map<String, Country> map = Maps.newConcurrentMap();
 	private static List<Country> list = Lists.newArrayList();
