@@ -13,14 +13,7 @@ import org.springframework.stereotype.Component;
 public class WebApplicationExceptionResolver implements ExceptionMapper<WebApplicationException> {
 
 	public Response toResponse(WebApplicationException ex) {
-
-		error.registerError(new Error(String.format(
-		    "Unknown Exception Caught : %s",
-		    ex.getMessage())));
-
 		return Response.status(Status.BAD_REQUEST).entity(ex.getMessage()).build();
 	}
-
-	private final ErrorWrapper error = new ErrorWrapper();
 
 }
